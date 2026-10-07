@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electricista & Aire Acondicionado</title>
+    <style>
+        :root { 
+            --dark: #0f172a; 
+            --yellow: #f59e0b; 
+            --blue: #0ea5e9; 
+            --whatsapp: #25d366; 
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+        body { background: #f8fafc; color: var(--dark); padding: 15px; text-align: center; }
+        
+        header { background: var(--dark); color: white; padding: 30px 15px; border-radius: 12px; margin-bottom: 15px; }
+        header h1 { font-size: 1.8rem; margin-bottom: 5px; }
+        header p { opacity: 0.9; font-size: 1rem; }
+
+        .info { background: #e2e8f0; padding: 12px; border-radius: 8px; margin-bottom: 15px; font-size: 0.95rem; font-weight: bold; }
+
+        /* Estilos de los bloques desplegables */
+        .accordion { background: white; margin-bottom: 12px; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden; text-align: left; }
+        
+        .accordion-btn { width: 100%; padding: 20px; background: white; border: none; font-size: 1.3rem; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.2s; }
+        .accordion-btn:hover { background: #f1f5f9; }
+        
+        .elec-btn { color: var(--yellow); border-left: 6px solid var(--yellow); }
+        .aire-btn { color: var(--blue); border-left: 6px solid var(--blue); }
+
+        /* Contenido oculto por defecto */
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background: #fafafa; }
+        .price-list { padding: 0 20px 20px 20px; list-style: none; }
+        .price-list li { padding: 10px 0; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; font-size: 0.95rem; }
+        .price-list li:last-child { border: none; }
+        .price-list span { font-weight: bold; color: var(--dark); }
+        .note { font-size: 0.8rem; color: #64748b; font-style: italic; padding: 0 20px 15px 20px; }
+
+        .btn-wa { display: block; background: var(--whatsapp); color: white; text-decoration: none; padding: 18px; font-weight: bold; border-radius: 50px; font-size: 1.2rem; box-shadow: 0 4px 10px rgba(37,211,102,0.3); margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>⚡ ELECTRICISTA & AIRE ❄️</h1>
+        <p>Servicio Técnico Profesional a Domicilio</p>
+    </header>
+
+    <div class="info">
+        ✅ Técnico Matriculado • 📍 Córdoba Capital y Alrededores
+    </div>
+
+    <!-- SECCIÓN ELECTRICIDAD -->
+    <div class="accordion">
+        <button class="accordion-btn elec-btn" onclick="toggleAccordion(this)">
+            ⚡ Servicios de Electricidad <span>▼</span>
+        </button>
+        <div class="accordion-content">
+            <ul class="price-list">
+                <li>Urgencia / Cortocircuito (Visita) <span>Desde $18.000</span></li>
+                <li>Cambio de Térmica / Disyuntor <span>Desde $12.000</span></li>
+                <li>Instalación de Luminaria LED / Aplique <span>Desde $8.500</span></li>
+                <li>Colocación de Ventilador de Techo <span>Desde $22.000</span></li>
+            </ul>
+            <p class="note">* Precios orientativos para mano de obra básica. No incluye materiales.</p>
+        </div>
+    </div>
+
+    <!-- SECCIÓN CLIMATIZACIÓN -->
+    <div class="accordion">
+        <button class="accordion-btn aire-btn" onclick="toggleAccordion(this)">
+            ❄️ Servicios de Aire Acondicionado <span>▼</span>
+        </button>
+        <div class="accordion-content">
+            <ul class="price-list">
+                <li>Instalación Split (Hasta 3000f) <span>Desde $85.000</span></li>
+                <li>Mantenimiento y Limpieza Completa <span>Desde $35.000</span></li>
+                <li>Control y Carga de Gas Refrigerante <span>Desde $45.000</span></li>
+                <li>Diagnóstico Técnico de Fallas <span>Desde $15.000</span></li>
+            </ul>
+            <p class="note">* Los precios de instalación pueden variar según la complejidad y metros de cañería necesarios.</p>
+        </div>
+    </div>
+
+    <!-- BOTÓN DE WHATSAPP -->
+    <a href="https://wa.me." class="btn-wa" target="_blank">
+        💬 Solicitar Turno por WhatsApp
+    </a>
+
+    <script>
+        function toggleAccordion(button) {
+            const content = button.nextElementSibling;
+            const arrow = button.querySelector('span');
+            
+            if (content.style.maxHeight && content.style.maxHeight !== "0px") {
+                content.style.maxHeight = "0px";
+                arrow.textContent = "▼";
+            } else {
+                // Cerrar el otro acordeón si estuviera abierto
+                document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = "0px");
+                document.querySelectorAll('.accordion-btn span').forEach(a => a.textContent = "▼");
+                
+                content.style.maxHeight = content.scrollHeight + "px";
+                arrow.textContent = "▲";
+            }
+        }
+    </script>
+
+</body>
+</html>
