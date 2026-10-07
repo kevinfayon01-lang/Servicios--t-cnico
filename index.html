@@ -38,9 +38,9 @@
         .form-group label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 0.9rem; color: #475569; }
         .form-control { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; color: var(--dark); outline: none; background: #f8fafc; }
         
-        /* Botón de Envío Clásico Eficaz */
-        .btn-submit-wa { display: block; width: 100%; background: var(--whatsapp); color: white; border: none; padding: 18px; font-size: 1.2rem; font-weight: bold; border-radius: 50px; text-align: center; box-shadow: 0 4px 10px rgba(37,211,102,0.3); margin-top: 10px; cursor: pointer; }
-        .btn-submit-wa:hover { background: #22c55e; }
+        /* Botón Enlace de WhatsApp */
+        .btn-link-wa { display: block; text-decoration: none; width: 100%; background: var(--whatsapp); color: white; padding: 18px; font-size: 1.2rem; font-weight: bold; border-radius: 50px; text-align: center; box-shadow: 0 4px 10px rgba(37,211,102,0.3); margin-top: 10px; cursor: pointer; }
+        .btn-link-wa:hover { background: #22c55e; }
 
         footer { font-size: 0.8rem; color: #64748b; margin-top: 30px; }
     </style>
@@ -94,12 +94,12 @@
         
         <div class="form-group">
             <label for="nombre">Tu Nombre:</label>
-            <input type="text" id="nombre" class="form-control" placeholder="Ej: Juan Pérez">
+            <input type="text" id="nombre" class="form-control" placeholder="Ej: Juan Pérez" oninput="actualizarEnlace()">
         </div>
 
         <div class="form-group">
             <label for="servicio">¿Qué servicio necesitas?</label>
-            <select id="servicio" class="form-control">
+            <select id="servicio" class="form-control" onchange="actualizarEnlace()">
                 <option value="Urgencia Eléctrica / Cortocircuito">⚡ Urgencia Eléctrica / Cortocircuito</option>
                 <option value="Instalación Eléctrica General / Luces LED">⚡ Instalación Eléctrica / Luces LED</option>
                 <option value="Instalación de Aire Acondicionado Split">❄️ Instalación de Aire Acondicionado Split</option>
@@ -110,13 +110,13 @@
 
         <div class="form-group">
             <label for="detalles">Detalles del trabajo (Opcional):</label>
-            <textarea id="detalles" class="form-control" rows="3" placeholder="Ej: Tengo un cortocircuito..."></textarea>
+            <textarea id="detalles" class="form-control" rows="3" placeholder="Ej: Tengo un cortocircuito..." oninput="actualizarEnlace()"></textarea>
         </div>
 
-        <!-- Botón que ejecuta la acción directa -->
-        <button type="button" class="btn-submit-wa" onclick="enviarFormulario()">
+        <!-- ENLACE DE WHATSAPP DIRECTO (No bloqueable) -->
+        <a id="botonWhatsApp" href="https://whatsapp.com." class="btn-link-wa" target="_blank">
             💬 Enviar Presupuesto a WhatsApp
-        </button>
+        </a>
     </div>
 
     <footer>
@@ -138,14 +138,12 @@
             }
         }
 
-        function enviarFormulario() {
+        // Esta función cambia el enlace en tiempo real mientras el usuario escribe
+        function actualizarEnlace() {
             const telefono = "5493743418347";
-            const nombreInput = document.getElementById('nombre').value.trim();
+            const nombre = document.getElementById('nombre').value.trim() || "Cliente Anónimo";
             const servicio = document.getElementById('servicio').value;
             const detalles = document.getElementById('detalles').value.trim();
-            
-            // Si el cliente no pone nombre, le asignamos uno por defecto para que no falle jamás
-            const nombre = nombreInput !== "" ? nombreInput : "Cliente Nuevo";
             
             let mensaje = `Hola! Mi nombre es *${nombre}*.\n\n`;
             mensaje += `🔧 *Necesito presupuesto para:* ${servicio}\n`;
@@ -154,10 +152,10 @@
             }
             
             const mensajeEncriptado = encodeURIComponent(mensaje);
-            const urlDefinitiva = `https://wa.me{telefono}?text=${mensajeEncriptado}`;
+            const nuevaUrl = `https://whatsapp.com{telefono}&text=${mensajeEncriptado}`;
             
-            // Acción forzada e inmediata
-            window.location.href = urlDefinitiva;
+            // Asigna el enlace de forma directa al botón nativo
+            document.getElementById('botonWhatsApp').href = nuevaUrl;
         }
     </script>
 
