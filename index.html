@@ -168,7 +168,8 @@
             
             const mensajeEncriptado = encodeURIComponent(mensaje);
             const urlDefinitiva = `https://whatsapp.com{telefono}&text=${mensajeEncriptado}`;
-            window.open(urlDefinitiva, '_blank');
+         // Redirección directa para evitar que los navegadores bloqueen la ventana emergente
+            window.location.href = urlDefinitiva;
         }
     </script>
 
